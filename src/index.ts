@@ -25,7 +25,7 @@ async function loadDuckDb(file: File): Promise<void> {
   const conn = await db.connect();
 
   await db.registerFileHandle(
-    file.name,
+    `file.xlsx`,
     file,
     duckdb.DuckDBDataProtocol.BROWSER_FILEREADER,
     true
@@ -34,7 +34,7 @@ async function loadDuckDb(file: File): Promise<void> {
   const c = await db.connect();
   await c.query("INSTALL spatial; LOAD spatial;");
   const read_xlsx = await c.query(
-    `CREATE OR REPLACE TABLE table1 AS SELECT * FROM ST_Read('${file.name}');`
+    `CREATE OR REPLACE TABLE table1 AS SELECT * FROM ST_Read('file.xlsx');`
   );
 
   await c.close();
